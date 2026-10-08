@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#d9d3ff">
+  <meta name="description" content="Lock in tomorrow's shirt tonight. First come, first dressed. No twins allowed!">
+
+  <title>nale eth shirt</title>
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:ital,opsz,wght@0,9..40,500;0,9..40,700;1,9..40,500;1,9..40,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="confetti-container" aria-hidden="true"></div>
+
+  <div id="offline-bar" class="offline-bar hidden" role="status" aria-live="assertive">
+    <div class="offline-badge">Offline</div>
+    <div class="offline-text">
+      <strong>Cannot reach the server</strong> — Check your connection. Retrying...
+    </div>
+  </div>
+
+  <main class="app-container">
+    <header class="app-header">
+      <div class="top-pills-row">
+        <div id="pill-date" class="tilted-pill pill-date" aria-label="Tomorrow's date">
+          For tomorrow
+        </div>
+        <div id="pill-ready" class="tilted-pill pill-ready" aria-label="Team readiness status">
+          0 of 0 ready
+        </div>
+        <button type="button" id="theme-toggle-btn" class="tilted-pill pill-theme" aria-label="Toggle dark mode" title="Toggle light/dark mode">
+          <span id="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
+
+      <h1 class="app-title">nale eth shirt</h1>
+      <p class="app-subtitle">Lock in tomorrow's shirt tonight. First come, first dressed. No twins allowed!</p>
+    </header>
+
+    <section class="clothesline-section" aria-label="Teammates on the clothesline">
+      <div class="clothesline-wire" aria-hidden="true"></div>
+      <div id="clothesline-list" class="clothesline-scroll" tabindex="0" role="region" aria-label="Scrollable row of teammates' shirts">
+      </div>
+    </section>
+
+    <div id="feedback-area" class="feedback-area" role="status" aria-live="polite"></div>
+
+    <section id="loading-card" class="sticker-card loading-card">
+      <h2 class="card-heading">Hanging up the shirts...</h2>
+      <p class="card-helper">Connecting to your team.</p>
+    </section>
+
+    <section id="join-card" class="sticker-card hidden">
+      <h2 class="card-heading">Join your team</h2>
+      <form id="join-form" class="join-form" novalidate>
+        <div class="form-group">
+          <label for="join-name-input" class="form-label">Your Name</label>
+          <input
+            type="text"
+            id="join-name-input"
+            class="sticker-input"
+            maxlength="24"
+            placeholder="e.g. Meera"
+            autocomplete="name"
+            required
+          >
+        </div>
+
+        <div id="team-code-group" class="form-group hidden">
+          <label for="join-code-input" class="form-label">Team Code</label>
+          <input
+            type="password"
+            id="join-code-input"
+            class="sticker-input"
+            placeholder="Enter secret code"
+            autocomplete="off"
+          >
+        </div>
+
+        <p class="card-helper">Teammates will see this name on your shirt. You only do this once.</p>
+
+        <button type="submit" id="join-submit-btn" class="sticker-btn btn-pop btn-full">
+          Join the team
+        </button>
+      </form>
+    </section>
+
+    <section id="pick-card" class="sticker-card hidden">
+      <h2 id="pick-heading" class="card-heading">Hi! Pick tomorrow's colour</h2>
+
+      <div id="palette-grid" class="palette-grid" role="group" aria-label="Palette options">
+      </div>
+
+      <div class="action-buttons-row">
+        <button type="button" id="surprise-btn" class="sticker-btn btn-sun">
+          Surprise me
+        </button>
+        <button type="button" id="clear-pick-btn" class="sticker-btn btn-surface">
+          Clear my pick
+        </button>
+      </div>
+
+      <div class="leave-team-row">
+        <button type="button" id="leave-team-btn" class="leave-link">
+          Leave team
+        </button>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p class="footer-note">Picks update live for everyone on the team. Colours free up after tomorrow.</p>
+    </footer>
+  </main>
+
+  <template id="shirt-svg-template">
+    <div class="shirt-hanger">
+      <div class="peg" aria-hidden="true"></div>
+      <svg class="shirt-svg" viewBox="0 0 88 88" width="88" height="88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="shirt-body" d="
+          M 28 14
+          L 10 25
+          L 16 38
+          L 26 33
+          L 26 78
+          A 4 4 0 0 0 30 82
+          L 58 82
+          A 4 4 0 0 0 62 78
+          L 62 33
+          L 72 38
+          L 78 25
+          L 60 14
+          Z"
+        />
+        <path class="shirt-collar-left" d="M 28 14 L 38 25 L 44 18 Z"/>
+        <path class="shirt-collar-right" d="M 60 14 L 50 25 L 44 18 Z"/>
+        <line class="shirt-neck-rim" x1="28" y1="14" x2="60" y2="14"/>
+        <line class="shirt-placket" x1="44" y1="25" x2="44" y2="76"/>
+        <circle class="shirt-button" cx="44" cy="35" r="2.2"/>
+        <circle class="shirt-button" cx="44" cy="48" r="2.2"/>
+        <circle class="shirt-button" cx="44" cy="61" r="2.2"/>
+      </svg>
+    </div>
+  </template>
+
+  <script src="/app.js"></script>
+</body>
+</html>
