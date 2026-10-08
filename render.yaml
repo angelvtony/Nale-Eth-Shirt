@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nale-eth-shirt
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TZ_NAME
+        value: Asia/Kolkata
